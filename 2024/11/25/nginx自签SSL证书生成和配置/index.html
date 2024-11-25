@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>nginx自签SSL证书生成和配置 | 一个菜鸡的网站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="创建1234567891011121314151617181920212223$ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -subj &quot;&#x2F;C&#x3D;CN&#x2F;ST&#x3D;SiChuan&#x2F;L&#x3D;ChengDu&#x2F;O&#x3D;ACS&quot; -keyout CA-private.key -out CA-certificate.crt -reqexts">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx自签SSL证书生成和配置">
+<meta property="og:url" content="https://hexo.zdu.us.kg/2024/11/25/nginx%E8%87%AA%E7%AD%BESSL%E8%AF%81%E4%B9%A6%E7%94%9F%E6%88%90%E5%92%8C%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="一个菜鸡的网站">
+<meta property="og:description" content="创建1234567891011121314151617181920212223$ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -subj &quot;&#x2F;C&#x3D;CN&#x2F;ST&#x3D;SiChuan&#x2F;L&#x3D;ChengDu&#x2F;O&#x3D;ACS&quot; -keyout CA-private.key -out CA-certificate.crt -reqexts">
+<meta property="og:locale">
+<meta property="article:published_time" content="2024-11-25T02:34:05.000Z">
+<meta property="article:modified_time" content="2024-11-25T10:49:06.807Z">
+<meta property="article:author" content="XiangYu Chen">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="一个菜鸡的网站" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">一个菜鸡的网站</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hexo.zdu.us.kg"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-nginx自签SSL证书生成和配置" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/11/25/nginx%E8%87%AA%E7%AD%BESSL%E8%AF%81%E4%B9%A6%E7%94%9F%E6%88%90%E5%92%8C%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time class="dt-published" datetime="2024-11-25T02:34:05.000Z" itemprop="datePublished">2024-11-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      nginx自签SSL证书生成和配置
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -subj <span class="string">&quot;/C=CN/ST=SiChuan/L=ChengDu/O=ACS&quot;</span> -keyout CA-private.key -out CA-certificate.crt -reqexts v3_req -extensions v3_ca</span><br><span class="line">$ openssl genrsa -out private.key 2048</span><br><span class="line">$ openssl req -new -key private.key -subj <span class="string">&quot;/C=CN/ST=SiChuan/L=ChengDu/O=ACS/CN=secrets--manager.oss-cn-shanghai.aliyuncs.com&quot;</span> -sha256 -out private.csr</span><br><span class="line">$ <span class="built_in">cat</span> &gt; private.ext &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string">[ req ]</span></span><br><span class="line"><span class="string">default_bits = 1024</span></span><br><span class="line"><span class="string">distinguished_name = req_distinguished_name</span></span><br><span class="line"><span class="string">req_extensions = san</span></span><br><span class="line"><span class="string">extensions = san</span></span><br><span class="line"><span class="string">[ req_distinguished_name ]</span></span><br><span class="line"><span class="string">countryName = CN</span></span><br><span class="line"><span class="string">stateOrProvinceName = Definesys</span></span><br><span class="line"><span class="string">localityName = Definesys</span></span><br><span class="line"><span class="string">organizationName = Definesys</span></span><br><span class="line"><span class="string">[SAN]</span></span><br><span class="line"><span class="string">authorityKeyIdentifier=keyid,issuer</span></span><br><span class="line"><span class="string">basicConstraints=CA:FALSE</span></span><br><span class="line"><span class="string">keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment</span></span><br><span class="line"><span class="string">subjectAltName = DNS:secrets--manager.oss-cn-shanghai.aliyuncs.com</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"><span class="comment"># subjectAltName可以是DNS和IP,写法: DNS:域名.com/IP:192.168.1.1; 多个用逗号隔开。</span></span><br><span class="line">$ openssl x509 -req -days 3650 -<span class="keyword">in</span> private.csr -CA CA-certificate.crt -CAkey CA-private.key -CAcreateserial -sha256 -out private.crt -extfile private.ext -extensions SAN</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 443 ssl;</span><br><span class="line">        server_name  secrets--manager.oss-cn-shanghai.aliyuncs.com;</span><br><span class="line">        keepalive_timeout  65;</span><br><span class="line">        client_max_body_size 512m;</span><br><span class="line">        client_header_buffer_size 1024k;</span><br><span class="line">        large_client_header_buffers 4 1024k;</span><br><span class="line">        client_body_timeout      5m;</span><br><span class="line">        ssl_certificate <span class="string">&quot;/etc/nginx/conf.d/ssl/private.crt&quot;</span>;</span><br><span class="line">        ssl_certificate_key <span class="string">&quot;/etc/nginx/conf.d/ssl/private.key&quot;</span>;</span><br><span class="line">        ssl_session_timeout  10m;</span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;</span><br><span class="line">        ssl_ciphers HIGH:!ADH:!aNULL:!MD5:!3DES:!IDEA:!DES;</span><br><span class="line">        ssl_prefer_server_ciphers on;</span><br><span class="line">        ssl_session_cache shared:SSL:10m;</span><br><span class="line">        <span class="comment">#ssl_session_timeout  10m;</span></span><br><span class="line">        <span class="comment">#ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span></span><br><span class="line">        <span class="comment">#ssl_ciphers ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:DES-CBC3-SHA:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4;</span></span><br><span class="line">        <span class="comment">#ssl_prefer_server_ciphers on;</span></span><br><span class="line">        fastcgi_param HTTPS <span class="variable">$https</span> if_not_empty;</span><br><span class="line"></span><br><span class="line">        <span class="comment">###### 根目录 #######</span></span><br><span class="line">        <span class="comment">#location / &#123;</span></span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Origin *;</span></span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Credentials: true;</span></span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Headers &quot;Origin, X-Requested-With, Content-Type, Accept&quot;;</span></span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Methods &quot;GET, POST, OPTIONS&quot;;</span></span><br><span class="line">            <span class="comment">#root /usr/share/nginx/html/sqfy;</span></span><br><span class="line">            <span class="comment">#index index.html;</span></span><br><span class="line">            <span class="comment">#proxy_pass http://nginx.sz-fun.svc.iyunware.com:80/;</span></span><br><span class="line">        <span class="comment">#&#125;</span></span><br><span class="line"></span><br><span class="line">        add_header Alt-Svc <span class="string">&#x27;h3=&quot;:443&quot;; ma=86400&#x27;</span>;</span><br><span class="line">        add_header Cross-0rigin-Opener-Policy same-origin;</span><br><span class="line">        add_header Cross-0rigin-Embedder-Policy require-corp;</span><br><span class="line">        location / &#123;</span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Origin *;</span></span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Credentials: true;</span></span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Headers &quot;Origin, X-Requested-With, Content-Type, Accept&quot;;</span></span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Methods &quot;GET, POST, OPTIONS&quot;;</span></span><br><span class="line">            root /usr/share/nginx/html;</span><br><span class="line">            index index.html;</span><br><span class="line">        &#125;</span><br><span class="line">        location /mes-secrets-manager.json &#123;</span><br><span class="line">            default_type application/json;</span><br><span class="line">            <span class="built_in">return</span> 200 <span class="string">&#x27;&#123;&quot;tokenKey&quot;:&quot;UoeqTwLRGtZJug==&quot;,&quot;jksResourceName&quot;:&quot;iyunware-jwt.jks&quot;,&quot;jksName&quot;:&quot;Nct3306@&quot;,&quot;jksAlias&quot;:&quot;iyunware-oauth-jwt&quot;,&quot;authorizationKey&quot;:&quot;&quot;,&quot;refreshTokenKey&quot;:&quot;&quot;,&quot;platformKey&quot;:&quot;&quot;,&quot;mapKey&quot;:&quot;&quot;&#125;&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="将CA-certificate-crt复制到-usr-local-share-ca-certificates-然后执行update-ca-certificates更新证书缓存"><a href="#将CA-certificate-crt复制到-usr-local-share-ca-certificates-然后执行update-ca-certificates更新证书缓存" class="headerlink" title="将CA-certificate.crt复制到&#x2F;usr&#x2F;local&#x2F;share&#x2F;ca-certificates; 然后执行update-ca-certificates更新证书缓存"></a>将CA-certificate.crt复制到&#x2F;usr&#x2F;local&#x2F;share&#x2F;ca-certificates; 然后执行update-ca-certificates更新证书缓存</h2><p>上面是我的配置示例</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hexo.zdu.us.kg/2024/11/25/nginx%E8%87%AA%E7%AD%BESSL%E8%AF%81%E4%B9%A6%E7%94%9F%E6%88%90%E5%92%8C%E9%85%8D%E7%BD%AE/" data-id="cm3x5yrk00002m7sb3wfhhers" data-title="nginx自签SSL证书生成和配置" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2024/11/25/k8s%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9C%A8Ubuntu%E4%B8%8B%E9%83%A8%E7%BD%B2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          k8s二进制在Ubuntu下部署
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2024/11/21/hexo%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">hexo操作记录</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/11/25/k8s%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9C%A8Ubuntu%E4%B8%8B%E9%83%A8%E7%BD%B2/">k8s二进制在Ubuntu下部署</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/25/nginx%E8%87%AA%E7%AD%BESSL%E8%AF%81%E4%B9%A6%E7%94%9F%E6%88%90%E5%92%8C%E9%85%8D%E7%BD%AE/">nginx自签SSL证书生成和配置</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/21/hexo%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/">hexo操作记录</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/12/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 XiangYu Chen<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

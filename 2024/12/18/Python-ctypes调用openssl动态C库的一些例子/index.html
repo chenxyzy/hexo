@@ -4,15 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>一个菜鸡的网站</title>
+  <title>Python ctypes调用openssl动态C库的一些例子 | 一个菜鸡的网站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="记录一些在人间的趣事">
-<meta property="og:type" content="website">
-<meta property="og:title" content="一个菜鸡的网站">
-<meta property="og:url" content="https://hexo.zdu.us.kg/index.html">
+  <meta name="description" content="AES 256 GCM加解密相关1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python ctypes调用openssl动态C库的一些例子">
+<meta property="og:url" content="https://hexo.zdu.us.kg/2024/12/18/Python-ctypes%E8%B0%83%E7%94%A8openssl%E5%8A%A8%E6%80%81C%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BE%8B%E5%AD%90/index.html">
 <meta property="og:site_name" content="一个菜鸡的网站">
-<meta property="og:description" content="记录一些在人间的趣事">
+<meta property="og:description" content="AES 256 GCM加解密相关1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889909192939495969">
 <meta property="og:locale">
+<meta property="article:published_time" content="2024-12-18T02:26:46.000Z">
+<meta property="article:modified_time" content="2024-12-18T10:34:33.476Z">
 <meta property="article:author" content="XiangYu Chen">
 <meta name="twitter:card" content="summary">
   
@@ -69,9 +71,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-Python-ctypes调用openssl动态C库的一些例子" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-Python-ctypes调用openssl动态C库的一些例子" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/12/18/Python-ctypes%E8%B0%83%E7%94%A8openssl%E5%8A%A8%E6%80%81C%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BE%8B%E5%AD%90/" class="article-date">
   <time class="dt-published" datetime="2024-12-18T02:26:46.000Z" itemprop="datePublished">2024-12-18</time>
@@ -84,8 +84,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/12/18/Python-ctypes%E8%B0%83%E7%94%A8openssl%E5%8A%A8%E6%80%81C%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BE%8B%E5%AD%90/">Python ctypes调用openssl动态C库的一些例子</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      Python ctypes调用openssl动态C库的一些例子
     </h1>
   
 
@@ -109,192 +109,19 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-k8s二进制在Ubuntu下部署" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/11/25/k8s%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9C%A8Ubuntu%E4%B8%8B%E9%83%A8%E7%BD%B2/" class="article-date">
-  <time class="dt-published" datetime="2024-11-25T02:53:15.000Z" itemprop="datePublished">2024-11-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/11/25/k8s%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9C%A8Ubuntu%E4%B8%8B%E9%83%A8%E7%BD%B2/">k8s二进制在Ubuntu下部署</a>
-    </h1>
+    <a href="/2024/11/25/k8s%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9C%A8Ubuntu%E4%B8%8B%E9%83%A8%E7%BD%B2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">k8s二进制在Ubuntu下部署</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="自用部署k8s记录"><a href="#自用部署k8s记录" class="headerlink" title="自用部署k8s记录"></a>自用部署k8s记录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &lt;&lt;<span class="string">EOF | sudo tee /etc/sysctl.d/k8s.conf</span></span><br><span class="line"><span class="string">net.ipv4.ip_forward = 1</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Apply sysctl params without reboot</span></span><br><span class="line"><span class="built_in">sudo</span> sysctl --system</span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt;<span class="string">EOF | sudo tee /etc/modules-load.d/k8s.conf</span></span><br><span class="line"><span class="string">overlay</span></span><br><span class="line"><span class="string">br_netfilter</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> modprobe overlay</span><br><span class="line"><span class="built_in">sudo</span> modprobe br_netfilter</span><br><span class="line"></span><br><span class="line"><span class="comment">#curl -L -O &#x27;https://github.com/containerd/containerd/releases/download/v1.7.22/containerd-1.7.22-linux-amd64.tar.gz&#x27;</span></span><br><span class="line"><span class="built_in">sudo</span> tar Cxzvf /usr/local containerd-1.7.21-linux-amd64.tar.gz</span><br><span class="line"><span class="comment">#curl -L -o /usr/local/lib/systemd/system/containerd.service &#x27;https://raw.githubusercontent.com/containerd/containerd/main/containerd.service&#x27;</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /usr/local/lib/systemd/system/</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> containerd.service /usr/local/lib/systemd/system/containerd.service</span><br><span class="line"><span class="built_in">sudo</span> systemctl daemon-reload</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now containerd</span><br><span class="line"><span class="comment">#curl -L -O &#x27;https://github.com/opencontainers/runc/releases/download/v1.1.15/runc.amd64&#x27;</span></span><br><span class="line"><span class="built_in">sudo</span> install -m 755 runc.amd64 /usr/local/sbin/runc</span><br><span class="line"></span><br><span class="line"><span class="comment">#curl -L -O &#x27;https://github.com/containernetworking/plugins/releases/download/v1.5.1/cni-plugins-linux-amd64-v1.5.1.tgz&#x27;</span></span><br><span class="line"><span class="comment">#mkdir -p /opt/cni/bin</span></span><br><span class="line"><span class="comment">#tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.1.1.tgz</span></span><br><span class="line"></span><br><span class="line">CNI_PLUGINS_VERSION=<span class="string">&quot;v1.5.1&quot;</span></span><br><span class="line">ARCH=<span class="string">&quot;amd64&quot;</span></span><br><span class="line">DEST=<span class="string">&quot;/opt/cni/bin&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p <span class="string">&quot;<span class="variable">$DEST</span>&quot;</span></span><br><span class="line"><span class="comment">#curl -L &quot;https://github.com/containernetworking/plugins/releases/download/$&#123;CNI_PLUGINS_VERSION&#125;/cni-plugins-linux-$&#123;ARCH&#125;-$&#123;CNI_PLUGINS_VERSION&#125;.tgz&quot; | sudo tar -C &quot;$DEST&quot; -xz</span></span><br><span class="line"><span class="built_in">cat</span> cni-plugins-linux-<span class="variable">$&#123;ARCH&#125;</span>-<span class="variable">$&#123;CNI_PLUGINS_VERSION&#125;</span>.tgz | <span class="built_in">sudo</span> tar -C <span class="string">&quot;<span class="variable">$DEST</span>&quot;</span> -xz</span><br><span class="line"></span><br><span class="line">DOWNLOAD_DIR=<span class="string">&quot;/usr/local/bin&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p <span class="string">&quot;<span class="variable">$DOWNLOAD_DIR</span>&quot;</span></span><br><span class="line"></span><br><span class="line">CRICTL_VERSION=<span class="string">&quot;v1.31.1&quot;</span></span><br><span class="line">ARCH=<span class="string">&quot;amd64&quot;</span></span><br><span class="line"><span class="comment">#curl -L &quot;https://github.com/kubernetes-sigs/cri-tools/releases/download/$&#123;CRICTL_VERSION&#125;/crictl-$&#123;CRICTL_VERSION&#125;-linux-$&#123;ARCH&#125;.tar.gz&quot; | sudo tar -C $DOWNLOAD_DIR -xz</span></span><br><span class="line"><span class="built_in">cat</span> crictl-<span class="variable">$&#123;CRICTL_VERSION&#125;</span>-linux-<span class="variable">$&#123;ARCH&#125;</span>.tar.gz | <span class="built_in">sudo</span> tar -C <span class="variable">$DOWNLOAD_DIR</span> -xz</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">RELEASE=<span class="string">&quot;v1.31.1&quot;</span></span><br><span class="line">ARCH=<span class="string">&quot;amd64&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> &#123;kubeadm,kubelet&#125; <span class="variable">$DOWNLOAD_DIR</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$DOWNLOAD_DIR</span></span><br><span class="line"><span class="comment">#sudo curl -L --remote-name-all https://dl.k8s.io/release/$&#123;RELEASE&#125;/bin/linux/$&#123;ARCH&#125;/&#123;kubeadm,kubelet&#125;</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x &#123;kubeadm,kubelet&#125;</span><br><span class="line"><span class="built_in">cd</span> -</span><br><span class="line">RELEASE_VERSION=<span class="string">&quot;master&quot;</span></span><br><span class="line"><span class="comment">#curl -sSL &quot;https://raw.githubusercontent.com/kubernetes/release/$&#123;RELEASE_VERSION&#125;/cmd/krel/templates/latest/kubelet/kubelet.service&quot; | sed &quot;s:/usr/bin:$&#123;DOWNLOAD_DIR&#125;:g&quot; | sudo tee /usr/lib/systemd/system/kubelet.service</span></span><br><span class="line"><span class="built_in">cat</span> kubelet.service | sed <span class="string">&quot;s:/usr/bin:<span class="variable">$&#123;DOWNLOAD_DIR&#125;</span>:g&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /usr/lib/systemd/system/kubelet.service</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /usr/lib/systemd/system/kubelet.service.d</span><br><span class="line"><span class="comment">#curl -sSL &quot;https://raw.githubusercontent.com/kubernetes/release/$&#123;RELEASE_VERSION&#125;/cmd/krel/templates/latest/kubeadm/10-kubeadm.conf&quot; | sed &quot;s:/usr/bin:$&#123;DOWNLOAD_DIR&#125;:g&quot; | sudo tee /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf</span></span><br><span class="line"><span class="built_in">cat</span> 10-kubeadm.conf | sed <span class="string">&quot;s:/usr/bin:<span class="variable">$&#123;DOWNLOAD_DIR&#125;</span>:g&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#curl -LO &quot;https://dl.k8s.io/release/v1.31.1/bin/linux/amd64/kubectl&quot;</span></span><br><span class="line"><span class="built_in">chmod</span> +x kubectl</span><br><span class="line"><span class="built_in">mkdir</span> -p ~/.local/bin</span><br><span class="line"><span class="built_in">cp</span> ./kubectl ~/.local/bin/kubectl</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> --now kubelet</span><br><span class="line"><span class="comment"># 以下导入离线镜像是在k8s官方仓库被墙的墙框下才需要，因为最新的配置已经加入了自定义的k8s仓库代理，故只要在网络联通的情况下不再需要手动单独导入了。</span></span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import coredns:v1.11.1.tar</span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import etcd:3.5.15-0.tar</span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import kube-apiserver:v1.31.0.tar</span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import kube-controller-manager:v1.31.0.tar</span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import kube-proxy:v1.31.0.tar</span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import kube-scheduler:v1.31.0.tar</span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import pause:3.10.tar</span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /etc/containerd/</span><br><span class="line"><span class="built_in">sudo</span> containerd config default | <span class="built_in">sudo</span> <span class="built_in">tee</span> /etc/containerd/config.toml</span><br><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s/SystemdCgroup *= *false/SystemdCgroup = true/&#x27;</span> /etc/containerd/config.toml</span><br><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s@sandbox_image *= *&quot;registry.k8s.io/pause:3.8&quot;@sandbox_image = &quot;registry.k8s.io/pause:3.10&quot;@g&#x27;</span> /etc/containerd/config.toml</span><br><span class="line"><span class="built_in">sudo</span> sed -i <span class="string">&#x27;s@\&lt;config_path = &quot;&quot;@config_path = &quot;/etc/containerd/certs.d&quot;@g&#x27;</span> /etc/containerd/config.toml</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /etc/containerd/certs.d/_default</span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF | sudo tee /etc/containerd/certs.d/_default/hosts.toml</span></span><br><span class="line"><span class="string">[host.&quot;https://docker.505345784.xyz&quot;]</span></span><br><span class="line"><span class="string">  capabilities = [&quot;pull&quot;, &quot;resolve&quot;]</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl restart containerd</span><br><span class="line"><span class="built_in">sudo</span> apt install -y socat conntrack</span><br><span class="line"><span class="built_in">sudo</span> kubeadm init --kubernetes-version 1.31.0</span><br><span class="line"></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="variable">$HOME</span>/.kube</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> -rf /etc/kubernetes/admin.conf <span class="variable">$HOME</span>/.kube/config</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chown</span> $(<span class="built_in">id</span> -u):$(<span class="built_in">id</span> -g) <span class="variable">$HOME</span>/.kube/config</span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF | sudo tee /etc/cni/net.d/10-containerd-net.conflist</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string"> &quot;cniVersion&quot;: &quot;1.0.0&quot;,</span></span><br><span class="line"><span class="string"> &quot;name&quot;: &quot;containerd-net&quot;,</span></span><br><span class="line"><span class="string"> &quot;plugins&quot;: [</span></span><br><span class="line"><span class="string">   &#123;</span></span><br><span class="line"><span class="string">     &quot;type&quot;: &quot;bridge&quot;,</span></span><br><span class="line"><span class="string">     &quot;bridge&quot;: &quot;cni0&quot;,</span></span><br><span class="line"><span class="string">     &quot;isGateway&quot;: true,</span></span><br><span class="line"><span class="string">     &quot;ipMasq&quot;: true,</span></span><br><span class="line"><span class="string">     &quot;promiscMode&quot;: true,</span></span><br><span class="line"><span class="string">     &quot;ipam&quot;: &#123;</span></span><br><span class="line"><span class="string">       &quot;type&quot;: &quot;host-local&quot;,</span></span><br><span class="line"><span class="string">       &quot;ranges&quot;: [</span></span><br><span class="line"><span class="string">         [&#123;</span></span><br><span class="line"><span class="string">           &quot;subnet&quot;: &quot;10.88.0.0/16&quot;</span></span><br><span class="line"><span class="string">         &#125;],</span></span><br><span class="line"><span class="string">         [&#123;</span></span><br><span class="line"><span class="string">           &quot;subnet&quot;: &quot;2001:db8:4860::/64&quot;</span></span><br><span class="line"><span class="string">         &#125;]</span></span><br><span class="line"><span class="string">       ],</span></span><br><span class="line"><span class="string">       &quot;routes&quot;: [</span></span><br><span class="line"><span class="string">         &#123; &quot;dst&quot;: &quot;0.0.0.0/0&quot; &#125;,</span></span><br><span class="line"><span class="string">         &#123; &quot;dst&quot;: &quot;::/0&quot; &#125;</span></span><br><span class="line"><span class="string">       ]</span></span><br><span class="line"><span class="string">     &#125;</span></span><br><span class="line"><span class="string">   &#125;,</span></span><br><span class="line"><span class="string">   &#123;</span></span><br><span class="line"><span class="string">     &quot;type&quot;: &quot;portmap&quot;,</span></span><br><span class="line"><span class="string">     &quot;capabilities&quot;: &#123;&quot;portMappings&quot;: true&#125;,</span></span><br><span class="line"><span class="string">     &quot;externalSetMarkChain&quot;: &quot;KUBE-MARK-MASQ&quot;</span></span><br><span class="line"><span class="string">   &#125;</span></span><br><span class="line"><span class="string"> ]</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">sudo</span> systemctl restart containerd</span><br><span class="line"><span class="comment"># docker镜像服务器被墙时候进行手动导入镜像，最新的配置了自定义docker容器代理；可以在线拉去了。</span></span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import --platform linux/amd64 kafka.tar</span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import --platform linux/amd64 minio.tar</span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import --platform linux/amd64 mysql.tar</span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import --platform linux/amd64 nacos.tar</span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import --platform linux/amd64 nginx.tar</span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import --platform linux/amd64 openjdk.tar</span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import --platform linux/amd64 redis.tar</span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import --platform linux/amd64 seata.tar</span><br><span class="line"><span class="built_in">sudo</span> ctr -n k8s.io i import --platform linux/amd64 kkfileview.tar</span><br><span class="line"></span><br><span class="line"><span class="comment"># 消除污点</span></span><br><span class="line">kubectl taint nodes --all node-role.kubernetes.io/control-plane-</span><br></pre></td></tr></table></figure>
-
-<p>注意：最新的版本号可以到github上面进行查询后修改。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hexo.zdu.us.kg/2024/11/25/k8s%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9C%A8Ubuntu%E4%B8%8B%E9%83%A8%E7%BD%B2/" data-id="cm3x5yrjy0001m7sb2qrjgvvq" data-title="k8s二进制在Ubuntu下部署" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
-    <article id="post-nginx自签SSL证书生成和配置" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/11/25/nginx%E8%87%AA%E7%AD%BESSL%E8%AF%81%E4%B9%A6%E7%94%9F%E6%88%90%E5%92%8C%E9%85%8D%E7%BD%AE/" class="article-date">
-  <time class="dt-published" datetime="2024-11-25T02:34:05.000Z" itemprop="datePublished">2024-11-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/11/25/nginx%E8%87%AA%E7%AD%BESSL%E8%AF%81%E4%B9%A6%E7%94%9F%E6%88%90%E5%92%8C%E9%85%8D%E7%BD%AE/">nginx自签SSL证书生成和配置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -subj <span class="string">&quot;/C=CN/ST=SiChuan/L=ChengDu/O=ACS&quot;</span> -keyout CA-private.key -out CA-certificate.crt -reqexts v3_req -extensions v3_ca</span><br><span class="line">$ openssl genrsa -out private.key 2048</span><br><span class="line">$ openssl req -new -key private.key -subj <span class="string">&quot;/C=CN/ST=SiChuan/L=ChengDu/O=ACS/CN=secrets--manager.oss-cn-shanghai.aliyuncs.com&quot;</span> -sha256 -out private.csr</span><br><span class="line">$ <span class="built_in">cat</span> &gt; private.ext &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string">[ req ]</span></span><br><span class="line"><span class="string">default_bits = 1024</span></span><br><span class="line"><span class="string">distinguished_name = req_distinguished_name</span></span><br><span class="line"><span class="string">req_extensions = san</span></span><br><span class="line"><span class="string">extensions = san</span></span><br><span class="line"><span class="string">[ req_distinguished_name ]</span></span><br><span class="line"><span class="string">countryName = CN</span></span><br><span class="line"><span class="string">stateOrProvinceName = Definesys</span></span><br><span class="line"><span class="string">localityName = Definesys</span></span><br><span class="line"><span class="string">organizationName = Definesys</span></span><br><span class="line"><span class="string">[SAN]</span></span><br><span class="line"><span class="string">authorityKeyIdentifier=keyid,issuer</span></span><br><span class="line"><span class="string">basicConstraints=CA:FALSE</span></span><br><span class="line"><span class="string">keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment</span></span><br><span class="line"><span class="string">subjectAltName = DNS:secrets--manager.oss-cn-shanghai.aliyuncs.com</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"><span class="comment"># subjectAltName可以是DNS和IP,写法: DNS:域名.com/IP:192.168.1.1; 多个用逗号隔开。</span></span><br><span class="line">$ openssl x509 -req -days 3650 -<span class="keyword">in</span> private.csr -CA CA-certificate.crt -CAkey CA-private.key -CAcreateserial -sha256 -out private.crt -extfile private.ext -extensions SAN</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 443 ssl;</span><br><span class="line">        server_name  secrets--manager.oss-cn-shanghai.aliyuncs.com;</span><br><span class="line">        keepalive_timeout  65;</span><br><span class="line">        client_max_body_size 512m;</span><br><span class="line">        client_header_buffer_size 1024k;</span><br><span class="line">        large_client_header_buffers 4 1024k;</span><br><span class="line">        client_body_timeout      5m;</span><br><span class="line">        ssl_certificate <span class="string">&quot;/etc/nginx/conf.d/ssl/private.crt&quot;</span>;</span><br><span class="line">        ssl_certificate_key <span class="string">&quot;/etc/nginx/conf.d/ssl/private.key&quot;</span>;</span><br><span class="line">        ssl_session_timeout  10m;</span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;</span><br><span class="line">        ssl_ciphers HIGH:!ADH:!aNULL:!MD5:!3DES:!IDEA:!DES;</span><br><span class="line">        ssl_prefer_server_ciphers on;</span><br><span class="line">        ssl_session_cache shared:SSL:10m;</span><br><span class="line">        <span class="comment">#ssl_session_timeout  10m;</span></span><br><span class="line">        <span class="comment">#ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span></span><br><span class="line">        <span class="comment">#ssl_ciphers ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:DES-CBC3-SHA:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4;</span></span><br><span class="line">        <span class="comment">#ssl_prefer_server_ciphers on;</span></span><br><span class="line">        fastcgi_param HTTPS <span class="variable">$https</span> if_not_empty;</span><br><span class="line"></span><br><span class="line">        <span class="comment">###### 根目录 #######</span></span><br><span class="line">        <span class="comment">#location / &#123;</span></span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Origin *;</span></span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Credentials: true;</span></span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Headers &quot;Origin, X-Requested-With, Content-Type, Accept&quot;;</span></span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Methods &quot;GET, POST, OPTIONS&quot;;</span></span><br><span class="line">            <span class="comment">#root /usr/share/nginx/html/sqfy;</span></span><br><span class="line">            <span class="comment">#index index.html;</span></span><br><span class="line">            <span class="comment">#proxy_pass http://nginx.sz-fun.svc.iyunware.com:80/;</span></span><br><span class="line">        <span class="comment">#&#125;</span></span><br><span class="line"></span><br><span class="line">        add_header Alt-Svc <span class="string">&#x27;h3=&quot;:443&quot;; ma=86400&#x27;</span>;</span><br><span class="line">        add_header Cross-0rigin-Opener-Policy same-origin;</span><br><span class="line">        add_header Cross-0rigin-Embedder-Policy require-corp;</span><br><span class="line">        location / &#123;</span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Origin *;</span></span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Credentials: true;</span></span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Headers &quot;Origin, X-Requested-With, Content-Type, Accept&quot;;</span></span><br><span class="line">            <span class="comment">#add_header Access-Control-Allow-Methods &quot;GET, POST, OPTIONS&quot;;</span></span><br><span class="line">            root /usr/share/nginx/html;</span><br><span class="line">            index index.html;</span><br><span class="line">        &#125;</span><br><span class="line">        location /mes-secrets-manager.json &#123;</span><br><span class="line">            default_type application/json;</span><br><span class="line">            <span class="built_in">return</span> 200 <span class="string">&#x27;&#123;&quot;tokenKey&quot;:&quot;UoeqTwLRGtZJug==&quot;,&quot;jksResourceName&quot;:&quot;iyunware-jwt.jks&quot;,&quot;jksName&quot;:&quot;Nct3306@&quot;,&quot;jksAlias&quot;:&quot;iyunware-oauth-jwt&quot;,&quot;authorizationKey&quot;:&quot;&quot;,&quot;refreshTokenKey&quot;:&quot;&quot;,&quot;platformKey&quot;:&quot;&quot;,&quot;mapKey&quot;:&quot;&quot;&#125;&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="将CA-certificate-crt复制到-usr-local-share-ca-certificates-然后执行update-ca-certificates更新证书缓存"><a href="#将CA-certificate-crt复制到-usr-local-share-ca-certificates-然后执行update-ca-certificates更新证书缓存" class="headerlink" title="将CA-certificate.crt复制到&#x2F;usr&#x2F;local&#x2F;share&#x2F;ca-certificates; 然后执行update-ca-certificates更新证书缓存"></a>将CA-certificate.crt复制到&#x2F;usr&#x2F;local&#x2F;share&#x2F;ca-certificates; 然后执行update-ca-certificates更新证书缓存</h2><p>上面是我的配置示例</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hexo.zdu.us.kg/2024/11/25/nginx%E8%87%AA%E7%AD%BESSL%E8%AF%81%E4%B9%A6%E7%94%9F%E6%88%90%E5%92%8C%E9%85%8D%E7%BD%AE/" data-id="cm3x5yrk00002m7sb3wfhhers" data-title="nginx自签SSL证书生成和配置" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hexo操作记录" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/11/21/hexo%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/" class="article-date">
-  <time class="dt-published" datetime="2024-11-21T07:40:31.000Z" itemprop="datePublished">2024-11-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/11/21/hexo%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/">hexo操作记录</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h2 id="hexo博客操作记录"><a href="#hexo博客操作记录" class="headerlink" title="hexo博客操作记录"></a>hexo博客操作记录</h2><h3 id="hexo-创建博文"><a href="#hexo-创建博文" class="headerlink" title="hexo 创建博文"></a>hexo 创建博文</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./node_modules/.bin/hexo new <span class="string">&quot;博文标题&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>创建完成后会在source&#x2F;_posts&#x2F;生成一个”博文标题”.md文件，按需编辑次文件。</p>
-<h3 id="hexo-生成"><a href="#hexo-生成" class="headerlink" title="hexo　生成"></a>hexo　生成</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./node_modules/.bin/hexo g</span><br></pre></td></tr></table></figure>
-
-<h3 id="hexo-上传渲染好的文章到github"><a href="#hexo-上传渲染好的文章到github" class="headerlink" title="hexo 上传渲染好的文章到github"></a>hexo 上传渲染好的文章到github</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./node_modules/.bin/hexo deploy</span><br></pre></td></tr></table></figure>
-
-<h3 id="hexo-启动本地简易server"><a href="#hexo-启动本地简易server" class="headerlink" title="hexo 启动本地简易server"></a>hexo 启动本地简易server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./node_modules/.bin/hexo server</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hexo.zdu.us.kg/2024/11/21/hexo%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/" data-id="cm3x5yrju0000m7sbe4w7g812" data-title="hexo操作记录" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/11/12/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2024-11-12T16:39:03.826Z" itemprop="datePublished">2024-11-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/11/12/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://hexo.zdu.us.kg/2024/11/12/hello-world/" data-id="cm3eok7vn0000i4sb5fekdn1h" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
 </section>

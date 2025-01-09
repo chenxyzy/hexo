@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>cloudflare workerd把玩-编译workerd（一） | 一个懒惰的倔强</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="背景最近迷上了cloudflare的workers和pages，这个东西能做不少事情主要是还有免费额度。当然现在的博客就是部署在cloudflare的pages上面的，还能写api服务、前端打包部署（通过Wrangler CLI这个工具）能做部署大多数框架生成的前端工程；这样就能前后端都部署在cloudflare workers中了；安装Wrangler CLI可以参考下面的命令，当然官方文件中也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cloudflare workerd把玩-编译workerd（一）">
+<meta property="og:url" content="https://hexo.zdu.us.kg/2025/01/07/cloudflare-workerd%E6%8A%8A%E7%8E%A9-%E7%BC%96%E8%AF%91workerd%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="一个懒惰的倔强">
+<meta property="og:description" content="背景最近迷上了cloudflare的workers和pages，这个东西能做不少事情主要是还有免费额度。当然现在的博客就是部署在cloudflare的pages上面的，还能写api服务、前端打包部署（通过Wrangler CLI这个工具）能做部署大多数框架生成的前端工程；这样就能前后端都部署在cloudflare workers中了；安装Wrangler CLI可以参考下面的命令，当然官方文件中也">
+<meta property="og:locale">
+<meta property="article:published_time" content="2025-01-07T07:24:53.000Z">
+<meta property="article:modified_time" content="2025-01-07T16:38:35.399Z">
+<meta property="article:author" content="XiangYu Chen">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="一个懒惰的倔强" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">一个懒惰的倔强</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Suche"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://hexo.zdu.us.kg"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-cloudflare-workerd把玩-编译workerd（一）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/07/cloudflare-workerd%E6%8A%8A%E7%8E%A9-%E7%BC%96%E8%AF%91workerd%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2025-01-07T07:24:53.000Z" itemprop="datePublished">2025-01-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      cloudflare workerd把玩-编译workerd（一）
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近迷上了cloudflare的workers和pages，这个东西能做不少事情主要是还有免费额度。当然现在的博客就是部署在cloudflare的pages上面的，还能写api服务、前端打包部署（通过Wrangler CLI这个工具）能做部署大多数框架生成的前端工程；这样就能前后端都部署在cloudflare workers中了；安装Wrangler CLI可以参考下面的命令，当然官方文件中也写得很清楚：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add --user wrangler</span><br></pre></td></tr></table></figure>
+
+<p>我也是无意中发现的cloudflare他们开源了自己的workers引擎，具体是在哪里发现的也记不太清楚了；于是呼就研究了一番workerd。</p>
+<h2 id="编译workerd"><a href="#编译workerd" class="headerlink" title="编译workerd"></a>编译workerd</h2><p>要研究这个项目肯定是少不了自己编译，参考官方的github给出的文档进行了编译，官方给出在linux下面编译环境如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Bazel</span><br><span class="line">If you use Bazelisk (recommended), it will automatically download and use the right version of Bazel for building workerd.</span><br><span class="line"></span><br><span class="line">On Linux:</span><br><span class="line">We use the clang/LLVM toolchain to build workerd and support version 16 and higher. Earlier versions of clang may still work, but are not officially supported.</span><br><span class="line"></span><br><span class="line">Clang 16+ (e.g. package clang-16 on Debian Bookworm). If clang is installed as clang-&lt;version&gt; please create a symlink to it in your PATH named clang, or use --action_env=CC=clang-&lt;version&gt; on bazel command lines to specify the compiler name.</span><br><span class="line"></span><br><span class="line">libc++ 16+ (e.g. packages libc++-16-dev and libc++abi-16-dev)</span><br><span class="line"></span><br><span class="line">LLD 16+ (e.g. package lld-16).</span><br><span class="line"></span><br><span class="line">python3, python3-distutils, and tcl8.6</span><br><span class="line"></span><br><span class="line">You may then build workerd at the command-line with:</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bazel build //src/workerd/server:workerd</span><br></pre></td></tr></table></figure>
+
+<p>我准备的系统和官方推荐的一致：<br>1.系统：Debian Bookworm<br>2.编译器：Clang 16<br>3.其他依赖的组件有clang-16,libc++-16-dev,libc++abi-16-dev,lld-16,python3,python3-distutils,tcl8.6<br>这里需要注意我使用的lxc创建的debian bookworm, 官方的这个文档中在我准备的这个系统中缺少了一些组件和一些配置：<br>1.因为我是使用官方推荐的Bazelisk,官方给的编译命令是Bazel build …，因为Bazelisk自动安装的Bazel在系统环境变量中找不到，所以应到替换成Bazelisk build …；这样就会自动下载特定版本的Bazel并运行了。<br>2.因为使用lxc创建的debian，如果直接安装好官方所需的组件后直接编译会提示缺少git；故最好在编译前安装好git。<br>3.到后边编译的时候会提示tclsh命令找不到，这是因为tclsh8.6没有生成软连接；最好在编译前手动生成一下。<br>3.后面生成带调试信息的workerd运行结束的时候会提示找不到llvm-symbolizer；同理手动生成一下llvm-symbolizer-16的软连接到llvm-symbolizer。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">➜  helloworld git:(main) ../../bazel-bin/src/workerd/server/workerd serve config.capnp           </span><br><span class="line">^Ckj/exception.c++:357: warning: llvm-symbolizer was not found. To symbolize stack traces, install it in your $PATH or set $LLVM_SYMBOLIZER to the location of the binary. When running tests under bazel, use `--test_env=LLVM_SYMBOLIZER=&lt;path&gt;`.</span><br><span class="line">*** Received signal #2: Interrupt</span><br><span class="line">stack: /lib/x86_64-linux-gnu/libc.so.6@108c1d ../../bazel-bin/src/workerd/server/workerd@a82418a ../../bazel-bin/src/workerd/server/workerd@a77784d ../../bazel-bin/src/workerd/server/workerd@a778ee8 ../../bazel-bin/src/workerd/server/workerd@3e9458e ../../bazel-bin/src/workerd/server/workerd@3ea9112 ../../bazel-bin/src/workerd/server/workerd@3ea8bac ../../bazel-bin/src/workerd/server/workerd@3ea8b88 ../../bazel-bin/src/workerd/server/workerd@3ea8b5e ../../bazel-bin/src/workerd/server/workerd@3ea8ab3 ../../bazel-bin/src/workerd/server/workerd@3ea8a83 ../../bazel-bin/src/workerd/server/workerd@a86356f ../../bazel-bin/src/workerd/server/workerd@a862035 ../../bazel-bin/src/workerd/server/workerd@a86a690 ../../bazel-bin/src/workerd/server/workerd@a863c51 ../../bazel-bin/src/workerd/server/workerd@a860f86 ../../bazel-bin/src/workerd/server/workerd@a86a690 ../../bazel-bin/src/workerd/server/workerd@a863c51 ../../bazel-bin/src/workerd/server/workerd@a86742b ../../bazel-bin/src/workerd/server/workerd@a85d52c ../../bazel-bin/src/workerd/server/workerd@a85d31a ../../bazel-bin/src/workerd/server/workerd@3e63189 /lib/x86_64-linux-gnu/libc.so.6@27249 /lib/x86_64-linux-gnu/libc.so.6@27304 ../../bazel-bin/src/workerd/server/workerd@3e63020</span><br></pre></td></tr></table></figure>
+
+<p>编译workerd会下载很多的依赖的第三方库，很多东西都是在墙外需要自行准备好梯子。</p>
+<h2 id="编译带调试信息的workerd"><a href="#编译带调试信息的workerd" class="headerlink" title="编译带调试信息的workerd"></a>编译带调试信息的workerd</h2><p>要研究workerd，不可避免的需要调试它；因为workerd是使用Bazel编译的，通过查找官方文档得知只需要在build后面加上-c dbg参数就能生成带调试信息的workerd了，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bazelisk build -c dbg //src/workerd/server:workerd</span><br></pre></td></tr></table></figure>
+
+<p>这样生成的workerd相当的庞大，我这边生成后文件大小来到了1.3G。生成后的文件在：bazel-bin&#x2F;src&#x2F;workerd&#x2F;server&#x2F;workerd</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  helloworld git:(main) <span class="built_in">ls</span> -alh ../../bazel-bin/src/workerd/server/workerd</span><br><span class="line">-r-xr-xr-x 1 root root 1.3G Jan  6 16:47 ../../bazel-bin/src/workerd/server/workerd</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://hexo.zdu.us.kg/2025/01/07/cloudflare-workerd%E6%8A%8A%E7%8E%A9-%E7%BC%96%E8%AF%91workerd%EF%BC%88%E4%B8%80%EF%BC%89/" data-id="cm5mnh6xq00008msb7vy2bza3" data-title="cloudflare workerd把玩-编译workerd（一）" class="article-share-link"><span class="fa fa-share">Teilen</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/01/09/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%A4%9A%E5%87%BA%E5%8F%A3%E6%8F%90%E4%BE%9B%E6%9C%8D%E5%8A%A1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          虚拟机多出口提供服务
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/01/07/freerdp%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA%E4%BA%92%E7%9B%B8%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E6%96%87%E4%BB%B6%E7%9A%84%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">freerdp连接远程主机互相复制粘贴文件的操作</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">December 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/09/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%A4%9A%E5%87%BA%E5%8F%A3%E6%8F%90%E4%BE%9B%E6%9C%8D%E5%8A%A1/">虚拟机多出口提供服务</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/cloudflare-workerd%E6%8A%8A%E7%8E%A9-%E7%BC%96%E8%AF%91workerd%EF%BC%88%E4%B8%80%EF%BC%89/">cloudflare workerd把玩-编译workerd（一）</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/freerdp%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA%E4%BA%92%E7%9B%B8%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E6%96%87%E4%BB%B6%E7%9A%84%E6%93%8D%E4%BD%9C/">freerdp连接远程主机互相复制粘贴文件的操作</a>
+          </li>
+        
+          <li>
+            <a href="/2024/12/18/Python-ctypes%E8%B0%83%E7%94%A8openssl%E5%8A%A8%E6%80%81C%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BE%8B%E5%AD%90/">Python ctypes调用openssl动态C库的一些例子</a>
+          </li>
+        
+          <li>
+            <a href="/2024/11/25/k8s%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9C%A8Ubuntu%E4%B8%8B%E9%83%A8%E7%BD%B2/">k8s二进制在Ubuntu下部署</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 XiangYu Chen<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -14,7 +14,7 @@
 <meta property="og:description" content="远程主机复制文件到本地linux主机如果在远程主机中复制文件粘贴到本地linux系统中，那么剪切板中的数据类型是下面三种类型的数据： 123text&#x2F;uri-listx-special&#x2F;gnome-copied-filesx-special&#x2F;mate-copied-files  注意在使用了wl-paste命令后，会将剪切板中的文件内容保存在命令执行后的路径中；如果不执行wl-paste命令是不会">
 <meta property="og:locale">
 <meta property="article:published_time" content="2025-01-07T03:08:02.000Z">
-<meta property="article:modified_time" content="2025-01-07T14:55:22.846Z">
+<meta property="article:modified_time" content="2025-01-07T15:20:17.332Z">
 <meta property="article:author" content="XiangYu Chen">
 <meta name="twitter:card" content="summary">
   
@@ -100,7 +100,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:///tmp/com.freerdp.client.cliprdr.2180867/20/region_2024_3_18 11_13_48.csv</span><br></pre></td></tr></table></figure>
 
 <p>其中&#x2F;2180867&#x2F;20是随机生成的。</p>
-<h2 id="本地linux主机复制文件到远程主机中"><a href="#本地linux主机复制文件到远程主机中" class="headerlink" title="本地linux主机复制文件到远程主机中"></a>本地linux主机复制文件到远程主机中</h2><p>本地linux主机复制文件到远程windows主机中当然也需要满足特定的格式，<br>1.需要获取到文件的绝对路径（没有测试过文件加是否能够正常复制到远程主机中）<br>2.复制的数据要将类型设置成text&#x2F;uri-list,我的桌面环境sway；如果是gnome或者别的桌面环境可能要使用不同的类型，这些可以自行测试。<br>以下是我生成文件绝对路径到剪切板的命令：</p>
+<h2 id="本地linux主机复制文件到远程主机中"><a href="#本地linux主机复制文件到远程主机中" class="headerlink" title="本地linux主机复制文件到远程主机中"></a>本地linux主机复制文件到远程主机中</h2><p>本地linux主机复制文件到远程windows主机中当然也需要满足特定的格式，<br>1.需要获取到文件的绝对路径（没有测试过文件夹是否能够正常复制到远程主机中）<br>2.复制的数据要将类型设置成text&#x2F;uri-list,我的桌面环境sway；如果是gnome或者别的桌面环境可能要使用不同的类型，这些可以自行测试。<br>以下是我生成文件绝对路径到剪切板的命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">readlink</span> -f &lt;PATH_FILE&gt; | sed <span class="string">&#x27;s|^|file://|&#x27;</span> |wl-copy -t text/uri-list</span><br></pre></td></tr></table></figure>
 
 <p>生成了以后就能直接在远程windows主机中粘贴文件了。为了方便我将这一长串命令封装成了一个函数这样就能简单的调用复制了，我的写法如下(在.bashrc文件中定义函数实现的)：</p>
@@ -123,6 +123,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2025/01/07/cloudflare-workerd%E6%8A%8A%E7%8E%A9-%E7%BC%96%E8%AF%91workerd%EF%BC%88%E4%B8%80%EF%BC%89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          cloudflare workerd把玩-编译workerd（一）
+        
+      </div>
+    </a>
   
   
     <a href="/2024/12/18/Python-ctypes%E8%B0%83%E7%94%A8openssl%E5%8A%A8%E6%80%81C%E5%BA%93%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BE%8B%E5%AD%90/" id="article-nav-older" class="article-nav-link-wrap">
@@ -165,6 +174,14 @@
       <ul>
         
           <li>
+            <a href="/2025/01/09/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%A4%9A%E5%87%BA%E5%8F%A3%E6%8F%90%E4%BE%9B%E6%9C%8D%E5%8A%A1/">虚拟机多出口提供服务</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/07/cloudflare-workerd%E6%8A%8A%E7%8E%A9-%E7%BC%96%E8%AF%91workerd%EF%BC%88%E4%B8%80%EF%BC%89/">cloudflare workerd把玩-编译workerd（一）</a>
+          </li>
+        
+          <li>
             <a href="/2025/01/07/freerdp%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8B%E4%B8%BB%E6%9C%BA%E4%BA%92%E7%9B%B8%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E6%96%87%E4%BB%B6%E7%9A%84%E6%93%8D%E4%BD%9C/">freerdp连接远程主机互相复制粘贴文件的操作</a>
           </li>
         
@@ -174,14 +191,6 @@
         
           <li>
             <a href="/2024/11/25/k8s%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%9C%A8Ubuntu%E4%B8%8B%E9%83%A8%E7%BD%B2/">k8s二进制在Ubuntu下部署</a>
-          </li>
-        
-          <li>
-            <a href="/2024/11/25/nginx%E8%87%AA%E7%AD%BESSL%E8%AF%81%E4%B9%A6%E7%94%9F%E6%88%90%E5%92%8C%E9%85%8D%E7%BD%AE/">nginx自签SSL证书生成和配置</a>
-          </li>
-        
-          <li>
-            <a href="/2024/11/21/hexo%E6%93%8D%E4%BD%9C%E8%AE%B0%E5%BD%95/">hexo操作记录</a>
           </li>
         
       </ul>

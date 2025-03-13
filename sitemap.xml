@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://hexo.zdu.us.kg/2025/03/13/%E8%BF%91%E6%9C%9F%E7%A0%94%E7%A9%B6Xdea%E8%AF%95%E7%94%A8%E6%BF%80%E6%B4%BB%E7%9A%84%E6%80%BB%E7%BB%93/</loc>
+    
+    <lastmod>2025-03-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://hexo.zdu.us.kg/2025/01/10/ttyd%E9%85%8D%E5%90%88lrzsz-trzsz%E5%AE%9E%E7%8E%B0%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93/</loc>
     
     <lastmod>2025-01-10</lastmod>
@@ -85,7 +94,7 @@
 
   <url>
     <loc>https://hexo.zdu.us.kg/</loc>
-    <lastmod>2025-01-16</lastmod>
+    <lastmod>2025-03-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
